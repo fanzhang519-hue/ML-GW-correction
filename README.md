@@ -68,18 +68,6 @@ The crystal scripts' default split is state/sample-wise, not by material. States
 
 All three original training scripts use their evaluation partition for learning-rate scheduling, checkpoint selection, and early stopping. Their saved `test_mae` values are therefore model-selection scores, not independent final-test estimates. A separately untouched test set is needed for the latter.
 
-## Validate and publish
-
-Run `python scripts/check_release.py` before publishing. The package uses Git LFS for PyTorch data, checkpoints, and DeepH archives. Do not use GitHub's browser file uploader for this multi-GB dataset.
-
-```bash
-# This directory has already been initialized as a local Git repository with LFS enabled.
-git add .gitattributes .gitignore README.md requirements.txt dataset model weights scripts
-git lfs ls-files
-git commit -m "Release processed data, code and model weights"
-git branch -M main
-git remote add origin https://github.com/OWNER/REPOSITORY.git
-git push -u origin main
 ```
 
 No repository URL or DOI is assigned by this package. Insert the actual public URL into the manuscript only after the data and LFS objects are accessible to an unauthenticated reader. Choose a license only after confirming the rights to redistribute the derived QM9 and external-code-related materials.
