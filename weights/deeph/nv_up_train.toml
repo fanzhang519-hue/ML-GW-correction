@@ -1,0 +1,148 @@
+[system]
+note = "siesta-dzp-NVminus-static-up"
+device = "gpu*1"
+float_type = "fp32"
+random_seed = 137
+log_level = "info"
+jax_memory_preallocate = true
+show_train_process_bar = false
+_is_initialized = true
+_filesystem_ready = true
+_has_logger = true
+_devices_type = "gpu"
+_devices_used_gpu_idx = [ 0,]
+_devices_gpu_quantity = 1
+_devices_cpu_node_num = 1
+_devices_cpu_quantity = 128
+_devices = [ "CudaDevice(id=0)",]
+_random_stream = "Not JSON serializable, skip."
+_torch_float_type = "torch.float32"
+_jnp_float_type = "<class 'jax.numpy.float32'>"
+
+[data]
+inputs_dir = "./inputs_up"
+outputs_dir = "./outputs_up"
+_outputs_dir = "./outputs_up/2026-09-11_17-01-24"
+_model_dir = "./outputs_up/2026-09-11_17-01-24/model"
+_log_path = "./outputs_up/2026-09-11_17-01-24/deepx.log"
+_data_split_save_json = "./outputs_up/2026-09-11_17-01-24/dataset_split.json"
+
+[model]
+net_type = "eagle"
+target_type = "H"
+loss_type = "mae"
+_model_type = "eagle-H"
+
+[system._sharding]
+data_way = 1
+mesh = "Not JSON serializable, skip."
+data_sharding = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+data_2nd_sharding = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec(None, 'data'), memory_kind=device)"
+trivial_sharding = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec(), memory_kind=device)"
+
+[data.dft]
+data_dir_depth = 0
+validation_check = false
+_path = "./inputs_up/dft"
+
+[data.graph]
+dataset_name = "siesta_dzp_NVminus_static_up"
+graph_type = "HS"
+storage_type = "memory"
+common_orbital_types = []
+parallel_num = 8
+only_save_graph = false
+_path = "./inputs_up/graph"
+_pt_file = "./inputs_up/graph/siesta_dzp_NVminus_static_up.train-HS.memory.pt"
+_graph_type = "train-HS"
+disk_shards_num = 1
+disk_mem_buffer_size = 2048
+
+[data.model_save]
+best = true
+latest = true
+latest_interval = 50
+latest_num = 5
+latest_cache_mid_step_interval = -1
+
+[model.advanced]
+gaussian_basis_rmax = 12.0
+net_irreps = "64x0e+48x1e+32x2e+16x3e+8x4e+8x5e+4x6e"
+num_blocks = 1
+num_heads = 2
+enable_bs3b_layer = false
+bs3b_orbital_types = []
+consider_parity = false
+standardize_gauge = false
+latent_irreps = ""
+latent_edge_cutoff = 100.0
+vr_focus_size = 256
+
+[process.train]
+max_epoch = 5000
+multi_way_jit_num = 1
+ahead_of_time_compile = false
+do_remat = false
+
+[system._sharding.batch_data_sharding]
+batch = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+edge_attr = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+edge_batch = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+edge_index = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec(None, 'data'), memory_kind=device)"
+edge_key = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+edge_sort_index = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+edge_sort_recover_index = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+global_batch = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+global_edges_batch = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+label = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+mask = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+overlap = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+x = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+wigner_matrix = "NamedSharding(mesh=Mesh('data': 1, axis_types=(Auto,)), spec=PartitionSpec('data',), memory_kind=device)"
+
+[process.train.dataloader]
+batch_size = 2
+train_size = 461
+validate_size = 58
+test_size = 57
+dataset_split_json = "./dataset_split_up.json"
+only_use_train_loss = false
+_batch_quantity = 231
+
+[process.train.drop]
+dropout_rate = 0.0
+stochastic_depth = 0.0
+proj_rate = 0.0
+
+[process.train.optimizer]
+type = "adamw"
+init_learning_rate = 0.001
+clip_norm_factor = -1.0
+betas = [ 0.9, 0.999,]
+weight = 0.001
+eps = 1e-8
+
+[process.train.scheduler]
+type = "reduce_on_plateau"
+factor = 0.5
+patience = 300
+rtol = 0.05
+cooldown = 80
+accum_size = 231
+min_learning_rate_scale = 1e-5
+
+[process.train.continued]
+enable = false
+new_training_data = false
+new_optimizer = false
+previous_output_dir = ""
+load_model_type = "latest"
+load_model_epoch = -1
+
+[process.train.with_plugin]
+enable = false
+plugin = "null"
+env_path = "./user/need/to/set/this"
+script_path = "./user/need/to/set/this"
+backend = "null"
+dump_intermediate = false

@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+runs/
+*.log
+slurm-*.out
+slurm-*.err
+
+# Internal provenance paths and previews are not needed by the training code.
+dataset/Crystal/source_root.pt
+dataset/Crystal/hpro_case_dir.pt
+dataset/Crystal/extract_report.json
+dataset/Crystal/debug_preview.json
+dataset/Crystal-spin/source_root.pt
+dataset/Crystal-spin/source_cij_dir.pt
+dataset/Crystal-spin/hpro_case_dir.pt
+dataset/Crystal-spin/extract_report.json
+dataset/Crystal-spin/debug_preview.json
+
+# Intermediate archive; the extracted spin tensors are published instead.
+dataset/crystal_spin_data.tar.gz
